@@ -21,6 +21,7 @@ module RocketPants
 
     # Converts it to JSON and back again.
     def self.normalise_as_json(object, options = {})
+      options = options.reverse_merge(RocketPants.default_serializer_options)
       options = options.reverse_merge(:compact => true) if object.is_a?(Array)
       object = RocketPants::Respondable.normalise_object(object, options)
       j = ActiveSupport::JSON

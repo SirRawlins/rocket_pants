@@ -110,6 +110,13 @@ module RocketPants
       @@pass_through_errors = value
     end
 
-  end
+    def default_serializer_options=(value)
+      @@default_serializer_options = value
+    end
+
+    def default_serializer_options
+      defined?(@@default_serializer_options) ? @@default_serializer_options : {}
+    end 
+  end 
 
 end
