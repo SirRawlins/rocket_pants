@@ -5,7 +5,8 @@ module RocketPants
     SerializerWrapper = Struct.new(:serializer, :object) do
 
       def serializable_hash(options = {})
-        instance = serializer.new(object, options)
+        instance = ActiveModel::SerializableResource.new(object, options.reverse_merge!(:serializer => serializer))
+
         if instance.respond_to?(:serializable_hash)
           instance.serializable_hash
         else
@@ -88,7 +89,7 @@ module RocketPants
       return object unless RocketPants.serializers_enabled?
       serializer = options.delete(:serializer)
       # AMS overrides active_model_serializer, so we ignore it and tell it to go away, generally...
-      serializer = object.active_model_serializer if object.respond_to?(:active_model_serializer) && serializer.nil? && !object.respond_to?(:to_ary)
+      serializer = ActiveModel::Serializer.serializer_for(object, options) if serializer.nil? && !object.respond_to?(:to_ary)    
       return object unless serializer
       SerializerWrapper.new serializer, object
     end
