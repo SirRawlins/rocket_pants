@@ -58,7 +58,7 @@ module RocketPants
         @error.present? && (error_type.blank? || RSpecMatchers.normalised_error(@error) == error_type)
       end
 
-      failure_message_for_should do |response|
+      failure_message do |response|
         if @error.blank?
           "expected #{error_type || "any error"} on response, got no error"
         else error_type.present? && (normalised = RSpecMatchers.normalised_error(@error)) != error_type
@@ -66,7 +66,7 @@ module RocketPants
         end
       end
 
-      failure_message_for_should_not do |response|
+      failure_message_when_negated do |response|
         "expected response to not have an #{error_type || "error"}, but it did (#{@error})"
       end
 
@@ -104,8 +104,8 @@ module RocketPants
         normalised_response == @decoded
       end
 
-      should_failure_method     = respond_to?(:failure_message) ? :failure_message : :failure_message_for_should
-      should_not_failure_method = respond_to?(:failure_message_when_negated) ? :failure_message_when_negated : :failure_message_for_should_not
+      should_failure_method     = :failure_message
+      should_not_failure_method = :failure_message_when_negated
 
       send(should_failure_method) do |response|
         message = "expected api to have exposed #{normalised_response.inspect}, got #{@decoded.inspect} instead."
