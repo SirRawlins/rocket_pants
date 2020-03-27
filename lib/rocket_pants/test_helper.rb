@@ -89,7 +89,7 @@ module RocketPants
     def process(action, *args)
       insert_action_controller_testing_into_base
 
-      if Rails::VERSION::MAJOR <= 4
+      if Rails::VERSION::MAJOR > 3
         # Rails 4 changes the method signature. In rails 3, parameters is the first argument.
         # In Rails 4, it's the second.
         if args.first.is_a?(String)
@@ -103,7 +103,7 @@ module RocketPants
 
       response.recycle_cached_body!
 
-      if Rails::VERSION::MAJOR <= 4
+      if Rails::VERSION::MAJOR > 3
         if _default_version.present? && parameters[:version].blank? && parameters['version'].blank?
           parameters[:version] = _default_version
         end
