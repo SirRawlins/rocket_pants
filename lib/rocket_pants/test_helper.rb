@@ -18,11 +18,11 @@ module RocketPants
     module ResponseHelper
 
       def recycle_cached_body!
-        @_parsed_body = @_decoded_body = nil
+        @_rp_parsed_body = @_decoded_body = nil
       end
 
-      def parsed_body
-        @_parsed_body ||= begin
+      def rp_parsed_body
+        @_rp_parsed_body ||= begin
           ActiveSupport::JSON.decode(body)
         rescue StandardError => e
           nil
@@ -31,7 +31,7 @@ module RocketPants
 
       def decoded_body
         @_decoded_body ||= begin
-          decoded = parsed_body
+          decoded = rp_parsed_body
           if decoded.is_a?(Hash)
             Hashie::Mash.new(decoded)
           else

@@ -654,7 +654,7 @@ RocketPants includes a set of helpers to make testing controllers built on `Rock
 
 Likewise, it adds the following helper methods:
 
-- `parsed_body` - A parsed-JSON representation of the response.
+- `rp_parsed_body` - A parsed-JSON representation of the response.
 - `decoded_body` - A `Hashie::Mash` of the response body.
 
 To set up the integration, in your `spec/spec_helper.rb` add:

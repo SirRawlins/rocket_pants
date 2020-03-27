@@ -100,7 +100,7 @@ module RocketPants
       normalised_response = RSpecMatchers.normalise_response(*args)
 
       match do |response|
-        @decoded = RSpecMatchers.normalise_urls(response.parsed_body["response"])
+        @decoded = RSpecMatchers.normalise_urls(response.rp_parsed_body["response"])
         normalised_response == @decoded
       end
 
